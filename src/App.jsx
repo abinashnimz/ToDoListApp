@@ -1,5 +1,9 @@
+import { ToDo } from "./components/ToDo"
+
 export const App = ()=>{
   return(
-    <h1 className="bg-zinc-900">App</h1>
+    <div className="bg-violet-950 grid py-4 h-screen">
+      <ToDo/>
+    </div>
   )
 }

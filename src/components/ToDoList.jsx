@@ -3,7 +3,6 @@ import not_tick from "../assets/not_tick.png";
 import del_icon from "../assets/delete.png";
 
 export const ToDoList = ({data, onDeleteTask, onCompleteTask})=>{
-    console.log(data.isComplete);
     return(
         <div className="flex items-center my-3 gap-2">
             <div className="flex flex-1 gap-2 items-center cursor-pointer" onClick={()=>onCompleteTask(data.id)}>

@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import todo_icon from "../assets/todo_icon.png";
 import { ToDoForm } from "./ToDoForm";
 import { ToDoList } from "./ToDoList";
 
 export const ToDo = () => {
 
-    const [task, setTask] = useState([]);
+    const [task, setTask] = useState(localStorage.getItem("toDoAppTask") ? JSON.parse(localStorage.getItem("toDoAppTask")):[]);
+
+
 
     const handleFormSubmit = (inputValue)=> {
         const {id, content, isComplete} = inputValue;
@@ -37,9 +39,13 @@ export const ToDo = () => {
         setTask(updatedTask);
     }
 
-    console.log(task);
+    useEffect(()=>{
+        localStorage.setItem("toDoAppTask", JSON.stringify(task));
+    },[task]);
+
+
     return (
-        <div className="bg-white place-self-center w-11/12 max-w-md flex flex-col min-h-[550px] rounded-xl p-7">
+        <div className="bg-white place-self-center w-11/12 max-w-xl flex flex-col min-h-[550px] rounded-xl p-7">
             {/* -------Title--------- */}
             <div className="flex items-center mt-7 gap-4">
                 <img src={todo_icon} alt="todo-icon" className="w-8" />
@@ -55,6 +61,10 @@ export const ToDo = () => {
                     return <ToDoList key={item.id} data={item} onDeleteTask={handleDeleteTask} onCompleteTask={handleCompleteTask}/>
                 })
             }
+            <div className="flex items-center justify-center">
+            <button className="mt-12 bg-red-700 w-32 h-10 rounded-full text-white font-semibold cursor-pointer" onClick={()=>setTask([])}>Clear All</button>
+            </div>
+            
         </div>
     )
 }
